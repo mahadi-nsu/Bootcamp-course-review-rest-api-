@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const bootcamps = require("./routes/bootcamps.js");
 const connectDB = require("./config/db");
+var colors = require("colors");
 
 // mounting the routes
 dotenv.config({ path: "./config/config.env" });
@@ -11,16 +12,15 @@ const app = express();
 // connect to database
 connectDB();
 
-// chaining to the
+// chaining to the to controller
 app.use("/api/v1/bootcamps", bootcamps);
 
 const server = app.listen(
   PORT,
-  console.log(`server running at ${process.env.PORT}`)
+  console.log(`server running at ${process.env.PORT}`.yellow.bold)
 );
 
 //handle unhandled promise rejection
-
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error : ${err.message}`);
   // close and exit
