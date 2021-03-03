@@ -3,12 +3,20 @@ const dotenv = require("dotenv");
 const bootcamps = require("./routes/bootcamps.js");
 const connectDB = require("./config/db");
 var colors = require("colors");
+var morgan = require("morgan");
 
 // mounting the routes
 dotenv.config({ path: "./config/config.env" });
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+// json parsing
+app.use(express.json());
+
+// Dev logging middleware
+if (process.env.NODE_ENV == "development") {
+  app.use(morgan("dev"));
+}
 // connect to database
 connectDB();
 
